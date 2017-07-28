@@ -1,0 +1,99 @@
+﻿<Window x:Class="BusinessCardQR.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BusinessCardQR"
+        mc:Ignorable="d"
+        Title="Business Card QRCode" Height="Auto" Width="1269.768" WindowStartupLocation="CenterScreen" 
+        WindowStyle="ThreeDBorderWindow" WindowState="Maximized" ResizeMode="CanResizeWithGrip" StateChanged="Window_StateChanged"
+        Icon="qrcode_logo.ico">
+
+    <Grid x:Name="FormLayout">
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height = "1.5*" />
+            <RowDefinition Height = "8*" />
+            <RowDefinition Height = "*" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="glHeader">
+            <Grid.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Margin" Value="5,5,5,5"/>
+                </Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="TextWrapping" Value="Wrap"></Setter>
+                    <Setter Property="TextAlignment" Value="Left"></Setter>
+                </Style>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.1*" />
+                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="0.3*" />
+                <ColumnDefinition Width="0.25*"/>
+                <ColumnDefinition Width="0.3*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Button Grid.Column="0" Content = "Upload Excel" HorizontalAlignment = "Left" VerticalAlignment = "Center" 
+                Width = "80" Height="30" Name="btnUploadExcel" Click="btnUploadExcel_Click" />
+            <Button Grid.Column="1" Content = "Clear Sort" x:Name="btnClearSort" HorizontalAlignment = "Left" VerticalAlignment = "Center" 
+                Width = "80" Height="30" Click="btnClearSort_Click" />
+            <TextBlock Grid.Column="2" Name="lblSearch" Text="Search" Padding="2" HorizontalAlignment = "Right" VerticalAlignment = "Center" />
+            <TextBox x:Name="txtSearch" Grid.Column="3" Width="210" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Left" 
+                     TextChanged="txtSearch_TextChanged"/>
+            <TextBlock x:Name="lblRecordToShow" Grid.Column="4" Margin="10" Text="Record to Show" HorizontalAlignment = "Right" VerticalAlignment = "Center" />
+            <ComboBox x:Name="cmbRecordCount" Grid.Column="5" Width="60" Height="20" HorizontalAlignment = "Right" VerticalAlignment = "Center" 
+                      SelectionChanged="cmbRecordCount_SelectionChanged" />
+        </Grid>
+
+        <DataGrid Name="dgEmployees" Grid.Row="1" Grid.Column="0" Margin="5 5 0 5" AutoGenerateColumns="False" HorizontalAlignment="Stretch"
+                  VerticalAlignment="Top" Width="Auto" ColumnWidth="100" RowHeight="30" Background="LightGray" RowBackground="LightYellow" 
+                  AlternatingRowBackground="LightBlue" CanUserAddRows="False">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Middle Name" Binding="{Binding MiddleName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Organization" Binding="{Binding Organization}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Title" Binding="{Binding Title}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Mobile" Binding="{Binding Mobile}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Landline" Binding="{Binding Landline}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Fax" Binding="{Binding Fax}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Url" Binding="{Binding Url}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Address" Binding="{Binding Address}" Width="220"></DataGridTextColumn>
+                <DataGridTemplateColumn Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="GenerateQRCode">QR Code</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Margin" Value="5,5,5,5"/>
+                </Style>
+            </StackPanel.Resources>
+            <Button x:Name="btnFirst" Content = "&lt;&lt;First" HorizontalAlignment = "Center" VerticalAlignment = "Center" Width = "80" Height="30" Click="btnFirst_Click" />
+            <Button x:Name="btnPrevious" Content = "&lt;Previous" HorizontalAlignment = "Center" VerticalAlignment = "Center" Width = "80" Height="30" Click="btnPrevious_Click" />
+            <TextBlock x:Name="lblPager" Text="No Data Found" Margin="10" Width="250" HorizontalAlignment = "Center" VerticalAlignment = "Center" TextAlignment="Center" />
+            <Button x:Name="btnNext" Content = "Next&gt;" HorizontalAlignment = "Center" VerticalAlignment = "Center" Width = "80" Height="30" Click="btnNext_Click" />
+            <Button x:Name="btnLast" Content = "Last&gt;&gt;" HorizontalAlignment = "Center" VerticalAlignment = "Center" Width = "80" Height="30" Click="btnLast_Click" />
+        </StackPanel>
+
+    </Grid>
+</Window>
